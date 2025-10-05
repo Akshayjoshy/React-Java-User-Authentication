@@ -10,6 +10,7 @@ import { AppConstants } from "../util/constants";
 import axios from "axios";
 import { showToast } from "../lib/toasts";
 import { useLocation, useNavigate } from "react-router-dom";
+import { Skeleton } from "../components/ui/skeleton";
 
 // Define the type for the context
 type AppContextType = {
@@ -29,12 +30,12 @@ type AppContextProviderProps = {
 export const AppContext = createContext<AppContextType | null>(null);
 
 export const AppContextProvider = ({ children }: AppContextProviderProps) => {
-
   axios.defaults.withCredentials = true;
 
   const backendURL = AppConstants.BACKEND_URL;
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userData, setUserData] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -43,6 +44,7 @@ export const AppContextProvider = ({ children }: AppContextProviderProps) => {
     "/login",
     "/sign-up",
     "/send-reset-otp",
+    "/verify-reset-otp",
     "/reset-password",
     "/logout",
   ];
@@ -62,7 +64,7 @@ export const AppContextProvider = ({ children }: AppContextProviderProps) => {
 
   const getAuthState = async () => {
     try {
-      const response = await axios.get(backendURL+"/is-authenticated");
+      const response = await axios.get(backendURL + "/is-authenticated");
       if (response.status === 200 && response.data === true) {
         setIsLoggedIn(true);
         await getUserData();
@@ -73,22 +75,24 @@ export const AppContextProvider = ({ children }: AppContextProviderProps) => {
       if (error.response) {
         const err =
           error.response.data?.message || "Authentication check faield";
-        navigate("/");
         showToast(err, "error");
       } else {
-        navigate("/");
         showToast(error.message, "error");
       }
       setIsLoggedIn(false);
-    } 
+      navigate("/");
+    } finally {
+      setLoading(false); // stop loading after check
+    }
   };
 
   useEffect(() => {
     if (!publicRoutes.includes(location.pathname)) {
       getAuthState();
+    } else {
+      setLoading(false); // no need to auth check for public routes
     }
   }, [location.pathname]);
-
 
   const contextValue: AppContextType = {
     backendURL,
@@ -98,6 +102,19 @@ export const AppContextProvider = ({ children }: AppContextProviderProps) => {
     setUserData,
     getUserData,
   };
+
+  if (loading) {
+    // Show Skeleton while auth check is happening
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+      <div className="space-y-2">
+        <Skeleton className="h-8 w-[350px] bg-gray-200" />
+        <Skeleton className="h-8 w-[300px] bg-gray-200" />
+        <Skeleton className="h-8 w-[250px] bg-gray-200" />
+      </div>
+    </div>
+    );
+  }
 
   return (
     <AppContext.Provider value={contextValue}>{children}</AppContext.Provider>

@@ -359,10 +359,10 @@ const LandingPage = () => {
             {/* CTA Buttons */}
             <div className="hidden md:flex items-center space-x-4">
               <button className="text-purple-200 hover:text-white transition-colors font-medium">
-                <Link to="/login">Sign up</Link>
+                <Link to="/sign-up">Sign up</Link>
               </button>
               <button className="bg-gradient-to-r from-purple-500 to-blue-500 text-white px-6 py-2 rounded-xl font-medium hover:from-purple-600 hover:to-blue-600 transition-all duration-200 transform hover:scale-105">
-                <Link to="/sign-up">Get Started</Link>
+                <Link to="/login">Get Started</Link>
               </button>
             </div>
 

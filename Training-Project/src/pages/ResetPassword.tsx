@@ -32,8 +32,8 @@ const ResetPassword: React.FC<EmailSubmitPageProps> = ({ type = "reset" }) => {
       subtitle: "Enter your email to reset your password",
       buttonText: "Send Reset OTP",
       icon: Key,
-      gradient: "from-rose-500 to-orange-500",
-      bgGradient: "from-rose-900 via-pink-900 to-orange-900",
+      gradient: "from-purple-500 to-pink-500",
+      bgGradient: "white",
       successTitle: "Check Your Email",
       successMessage: `We've sent a password reset otp to your email address. Click the link in the email to reset your password.`,
       helpText:
@@ -90,25 +90,28 @@ const ResetPassword: React.FC<EmailSubmitPageProps> = ({ type = "reset" }) => {
   return (
     <>
       {!isSubmitted ? (
-        <div
-          className={`min-h-screen bg-gradient-to-br ${config.bgGradient} flex items-center justify-center p-4`}
-        >
-          <div className="absolute inset-0 bg-black/20"></div>
+        <div className="min-h-screen flex items-center justify-center p-4 relative bg-white overflow-hidden">
+          {/* Blurred Animated Circles */}
+          <div className="absolute inset-0 overflow-hidden">
+            <div className="absolute -top-40 -right-40 w-80 h-80 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-pulse"></div>
+            <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-pink-500 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-pulse animation-delay-2000"></div>
+            <div className="absolute top-40 left-40 w-80 h-80 bg-indigo-500 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-pulse animation-delay-4000"></div>
+          </div>
           <div className="relative z-10 w-full max-w-md">
             {/* Email Form */}
-            <div className="bg-white/10 backdrop-blur-lg rounded-3xl p-8 shadow-2xl border border-white/20">
+            <div className="bg-white/10 backdrop-blur-lg rounded-3xl p-8 shadow-2xl border border-gray-200">
               <form onSubmit={handleSubmit(addNewItem)}>
                 {/* Help Text */}
-                <div className="mb-6 p-4 bg-white/5 rounded-xl border border-white/10">
+                <div className="mb-6 p-4 bg-white/5 rounded-xl border border-gray-200">
                   <div className="flex items-start space-x-3">
                     <config.icon
                       className={`w-5 h-5 ${
-                        isResetPage ? "text-rose-300" : "text-emerald-300"
+                        isResetPage ? "text-purple-500" : "text-emerald-300"
                       } mt-0.5 flex-shrink-0`}
                     />
                     <p
                       className={`text-sm ${
-                        isResetPage ? "text-rose-200" : "text-emerald-200"
+                        isResetPage ? "text-gray-700" : "text-emerald-200"
                       }`}
                     >
                       {config.helpText}
@@ -120,14 +123,14 @@ const ResetPassword: React.FC<EmailSubmitPageProps> = ({ type = "reset" }) => {
                 <div className="space-y-2 mb-6">
                   <label
                     htmlFor="email"
-                    className="block text-sm font-medium text-white"
+                    className="block text-sm font-medium text-black"
                   >
                     Email Address
                   </label>
                   <div className="relative">
                     <Mail
                       className={`absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 ${
-                        isResetPage ? "text-rose-300" : "text-emerald-300"
+                        isResetPage ? "text-gray-400" : "text-emerald-300"
                       }`}
                     />
                     <input
@@ -138,7 +141,7 @@ const ResetPassword: React.FC<EmailSubmitPageProps> = ({ type = "reset" }) => {
                       className={`w-full pl-12 pr-4 py-3 bg-white/10 border rounded-xl text-white placeholder-purple-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 ${
                         errors.email?.message
                           ? "border-red-400"
-                          : "border-white/20"
+                          : "border-gray-300"
                       }`}
                       placeholder="Enter your email address"
                     />
@@ -152,13 +155,7 @@ const ResetPassword: React.FC<EmailSubmitPageProps> = ({ type = "reset" }) => {
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className={`w-full bg-gradient-to-r ${
-                    config.gradient
-                  } text-white py-4 px-4 rounded-xl font-semibold text-lg hover:opacity-90 focus:outline-none focus:ring-2 ${
-                    isResetPage
-                      ? "focus:ring-rose-500"
-                      : "focus:ring-emerald-500"
-                  } focus:ring-offset-2 focus:ring-offset-transparent transition-all duration-200 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center space-x-2`}
+                  className={`w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white py-4 px-4 rounded-xl font-semibold text-lg hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-transparent transition-all duration-200 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center space-x-2`}
                 >
                   {isLoading ? (
                     <div className="w-6 h-6 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
@@ -175,11 +172,11 @@ const ResetPassword: React.FC<EmailSubmitPageProps> = ({ type = "reset" }) => {
                   {/* Remember Password Link (for reset page) */}
                   {isResetPage && (
                     <div className="text-center">
-                      <p className="text-rose-200 text-sm">
+                      <p className="text-gray-700 text-sm">
                         Remember your password?{" "}
                         <Link
                           to="/login"
-                          className="text-rose-300 hover:text-white font-semibold transition-colors underline"
+                          className="text-purple-500 hover:text-purple-700 font-semibold transition-colors underline"
                         >
                           Back to Sign In
                         </Link>
@@ -190,11 +187,11 @@ const ResetPassword: React.FC<EmailSubmitPageProps> = ({ type = "reset" }) => {
                   {/* Create Account Link (for verify page) */}
                   {!isResetPage && (
                     <div className="text-center">
-                      <p className="text-emerald-200 text-sm">
+                      <p className="text-gray-700 text-sm">
                         Don't have an account?{" "}
                         <Link
                           to="/sign-up"
-                          className="text-blue-300 hover:text-white font-semibold transition-colors"
+                          className="text-purple-500 hover:text-purple-700 font-semibold transition-colors"
                         >
                           Sign up
                         </Link>
@@ -207,16 +204,14 @@ const ResetPassword: React.FC<EmailSubmitPageProps> = ({ type = "reset" }) => {
 
             {/* Security Notice */}
             {!isSubmitted && (
-              <div className="mt-6 p-4 bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10">
+              <div className="mt-6 p-4 bg-white/5 backdrop-blur-lg rounded-3xl p-8 shadow-2xl border border-gray-200">
                 <div className="flex items-start space-x-3">
-                  <div
-                    className={`w-6 h-6 bg-gradient-to-r ${config.gradient} rounded-full flex items-center justify-center flex-shrink-0 mt-0.5`}
-                  >
+                  <div className="w-6 h-6 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
                     <Check className="w-3 h-3 text-white" />
                   </div>
                   <div
                     className={`text-sm ${
-                      isResetPage ? "text-rose-200" : "text-emerald-200"
+                      isResetPage ? "text-gray-700" : "text-emerald-200"
                     }`}
                   >
                     <p className="font-medium mb-1">Secure & Private</p>

@@ -53,7 +53,10 @@ const Signup = () => {
         showToast("Email Already Exist", "error");
       }
     } catch (error: any) {
-      showToast(error.response?.data?.message || "An unexpected error occurred", "error");
+      showToast(
+        error.response?.data?.message || "An unexpected error occurred",
+        "error"
+      );
     }
     // Simulate API call
     setTimeout(() => {
@@ -63,40 +66,41 @@ const Signup = () => {
   };
 
   return (
-    <div className="max-h-[130vh] overflow-y-auto scroll-bar bg-gradient-to-br from-purple-900 to-purple-900 via-indigo-900 flex items-center justify-center p-4">
-      {/* <div className="absolute inset-0 bg-black/20"></div> */}
+    <div className="max-h-[130vh] overflow-y-auto scroll-bar bg-white flex items-center justify-center p-4 relative">
+      {/* Animated background elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-pulse"></div>
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-pink-500 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-pulse animation-delay-2000"></div>
+        <div className="absolute top-40 left-40 w-80 h-80 bg-indigo-500 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-pulse animation-delay-4000"></div>
+      </div>
+
       <div className="relative z-10 w-full max-w-md">
         {/* Logo/Brand */}
         <div className="text-center mb-4">
-          {/* <div className="mx-auto w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl flex items-center justify-center mb-4 shadow-2xl">
-            <UserPlus className="w-8 h-8 text-white" />
-          </div> */}
-          <h1 className="text-3xl font-bold text-white mb-2">Create Account</h1>
-          <p className="text-blue-200">Join us and get started</p>
+          <h1 className="text-3xl font-bold text-black mb-2">Create Account</h1>
+          <p className="text-gray-700">Join us and get started</p>
         </div>
 
         {/* Signup Form */}
-        <div className="bg-white/10 backdrop-blur-lg rounded-3xl p-8 shadow-2xl border border-white/20">
+        <div className="bg-white/90 backdrop-blur-lg rounded-3xl p-8 shadow-2xl border border-gray-200">
           <form onSubmit={handleSubmit(addNewItem)} className="space-y-6">
             {/* Name Fields */}
             <div className="space-y-2">
               <label
                 htmlFor="name"
-                className="block text-sm font-medium text-white"
+                className="block text-sm font-medium text-black"
               >
                 Full Name
               </label>
               <div className="relative">
-                <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-blue-300" />
+                <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
                 <input
                   {...register("name")}
                   type="text"
                   id="name"
                   name="name"
-                  className={`w-full pl-12 pr-4 py-3 bg-white/10 border rounded-xl text-white placeholder-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 ${
-                    errors.name?.message
-                      ? "border-red-400"
-                      : "border-white/20"
+                  className={`w-full pl-12 pr-4 py-3 bg-white border rounded-xl text-black placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 ${
+                    errors.name?.message ? "border-red-400" : "border-gray-300"
                   }`}
                   placeholder="Full name"
                 />
@@ -110,19 +114,19 @@ const Signup = () => {
             <div className="space-y-2">
               <label
                 htmlFor="email"
-                className="block text-sm font-medium text-white"
+                className="block text-sm font-medium text-black"
               >
                 Email Address
               </label>
               <div className="relative">
-                <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-blue-300" />
+                <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
                 <input
                   {...register("email")}
                   type="email"
                   id="email"
                   name="email"
-                  className={`w-full pl-12 pr-4 py-3 bg-white/10 border rounded-xl text-white placeholder-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 ${
-                    errors.email?.message ? "border-red-400" : "border-white/20"
+                  className={`w-full pl-12 pr-4 py-3 bg-white border rounded-xl text-black placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 ${
+                    errors.email?.message ? "border-red-400" : "border-gray-300"
                   }`}
                   placeholder="Enter your email"
                 />
@@ -136,28 +140,28 @@ const Signup = () => {
             <div className="space-y-2">
               <label
                 htmlFor="password"
-                className="block text-sm font-medium text-white"
+                className="block text-sm font-medium text-black"
               >
                 Password
               </label>
               <div className="relative">
-                <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-blue-300" />
+                <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
                 <input
                   {...register("password")}
                   type={showPassword ? "text" : "password"}
                   id="password"
                   name="password"
-                  className={`w-full pl-12 pr-12 py-3 bg-white/10 border rounded-xl text-white placeholder-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 ${
+                  className={`w-full pl-12 pr-12 py-3 bg-white border rounded-xl text-black placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 ${
                     errors.password?.message
                       ? "border-red-400"
-                      : "border-white/20"
+                      : "border-gray-300"
                   }`}
                   placeholder="Create a password"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-blue-300 hover:text-white transition-colors"
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-black transition-colors"
                 >
                   {showPassword ? (
                     <EyeOff className="w-5 h-5" />
@@ -175,28 +179,28 @@ const Signup = () => {
             <div className="space-y-2">
               <label
                 htmlFor="confirmPassword"
-                className="block text-sm font-medium text-white"
+                className="block text-sm font-medium text-black"
               >
                 Confirm Password
               </label>
               <div className="relative">
-                <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-blue-300" />
+                <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
                 <input
                   {...register("confirmPassword")}
                   type={showConfirmPassword ? "text" : "password"}
                   id="confirmPassword"
                   name="confirmPassword"
-                  className={`w-full pl-12 pr-12 py-3 bg-white/10 border rounded-xl text-white placeholder-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 ${
+                  className={`w-full pl-12 pr-12 py-3 bg-white border rounded-xl text-black placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 ${
                     errors.confirmPassword?.message
                       ? "border-red-400"
-                      : "border-white/20"
+                      : "border-gray-300"
                   }`}
                   placeholder="Confirm your password"
                 />
                 <button
                   type="button"
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-blue-300 hover:text-white transition-colors"
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-black transition-colors"
                 >
                   {showConfirmPassword ? (
                     <EyeOff className="w-5 h-5" />
@@ -216,20 +220,20 @@ const Signup = () => {
                 <input
                   type="checkbox"
                   name="acceptTerms"
-                  className="w-5 h-5 text-blue-600 bg-white/10 border-white/20 rounded focus:ring-blue-500 focus:ring-2 mt-0.5"
+                  className="w-5 h-5 text-purple-600 bg-white border-gray-300 rounded focus:ring-purple-500 focus:ring-2 mt-0.5"
                 />
-                <span className="text-sm text-blue-200 leading-relaxed">
+                <span className="text-sm text-gray-700 leading-relaxed">
                   I agree to the{" "}
                   <a
                     href="#"
-                    className="text-blue-300 hover:text-white underline transition-colors"
+                    className="text-purple-600 hover:text-purple-800 underline transition-colors"
                   >
                     Terms of Service
                   </a>{" "}
                   and{" "}
                   <a
                     href="#"
-                    className="text-blue-300 hover:text-white underline transition-colors"
+                    className="text-purple-600 hover:text-purple-800 underline transition-colors"
                   >
                     Privacy Policy
                   </a>
@@ -244,7 +248,7 @@ const Signup = () => {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full bg-gradient-to-r from-blue-500 to-purple-500 text-white py-3 px-4 rounded-xl font-semibold hover:from-blue-600 hover:to-purple-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-transparent transition-all duration-200 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center space-x-2"
+              className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white py-3 px-4 rounded-xl font-semibold hover:from-purple-600 hover:to-pink-600 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-transparent transition-all duration-200 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center space-x-2"
             >
               {isLoading ? (
                 <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
@@ -259,16 +263,19 @@ const Signup = () => {
 
           {/* Divider */}
           <div className="mt-6 flex items-center">
-            <div className="flex-1 border-t border-white/20"></div>
-            <span className="px-4 text-sm text-blue-300">Or sign up with</span>
-            <div className="flex-1 border-t border-white/20"></div>
+            <div className="flex-1 border-t border-gray-300"></div>
+            <span className="px-4 text-sm text-purple-500">
+              Or sign up with
+            </span>
+            <div className="flex-1 border-t border-gray-300"></div>
           </div>
+
           {/* Login Link */}
-          <p className="mt-6 text-center text-blue-200">
+          <p className="mt-6 text-center text-gray-700">
             Already have an account?{" "}
             <Link
               to="/login"
-              className="text-blue-300 hover:text-white font-semibold transition-colors"
+              className="text-purple-600 hover:text-purple-800 font-semibold transition-colors"
             >
               Sign in
             </Link>
