@@ -17,4 +17,6 @@ public interface ProfileService {
 
     void verifyOtp(String email, String  otp);
 
+    void checkOtp(String email, String  otp);
+
 }

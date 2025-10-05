@@ -1,0 +1,32 @@
+ebez amnq cddr kopz
+spring.mail.username=akshayjoshy1611@gmail.com
+spring.mail.password=ebezamnqcddrkopz
+
+
+https://support.google.com/accounts/answer/185833?hl=en
+
+use above url for below purpose for setting new email smtp app password
+
+Sign in with app passwords
+Important: App passwords aren't recommended and are unnecessary in most cases. To help keep your account secure, use "Sign in with Google" to connect apps to your Google Account.
+An app password is a 16-digit passcode that gives a less secure app or device permission to access your Google Account. App passwords can only be used with accounts that have 2-Step Verification turned on.
+
+When to use app passwords
+Tip: iPhones and iPads with iOS 11 or up don't require app passwords. Instead use "Sign in with Google."
+
+If the app doesn't offer "Sign in with Google," you can either:
+
+Use app passwords
+Switch to a more secure app or device
+Create & use app passwords
+Important: To create an app password, you need 2-Step Verification on your Google Account.
+
+If you use 2-Step-Verification and get a "password incorrect" error when you sign in, you can try to use an app password.
+
+Create and manage your app passwords. You may need to sign in to your Google Account.
+
+If you've set up 2-Step Verification but can't find the option to add an app password, it might be because:
+
+Your Google Account has 2-Step Verification set up only for security keys.
+You're logged into a work, school, or another organization account.
+Your Google Account has Advanced Protection.

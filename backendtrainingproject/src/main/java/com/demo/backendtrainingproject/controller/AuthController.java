@@ -3,6 +3,7 @@ package com.demo.backendtrainingproject.controller;
 import com.demo.backendtrainingproject.io.AuthRequest;
 import com.demo.backendtrainingproject.io.AuthResponse;
 import com.demo.backendtrainingproject.io.ResetPasswordRequest;
+import com.demo.backendtrainingproject.io.VerifyOtpRequest;
 import com.demo.backendtrainingproject.service.AppUserDetailsService;
 import com.demo.backendtrainingproject.service.ProfileService;
 import com.demo.backendtrainingproject.util.JwtUtil;
@@ -19,6 +20,7 @@ import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.annotation.CurrentSecurityContext;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -85,12 +87,26 @@ public class AuthController {
         }
     }
 
+    @PostMapping("/verify-reset-otp")
+    public void verifyResetOtp(@RequestBody @Valid VerifyOtpRequest request) {
+        try {
+            profileService.checkOtp(request.getEmail(), request.getOtp());
+            // If no exception is thrown, OTP is valid and nothing else needs to be returned
+        } catch (UsernameNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+        } catch (RuntimeException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+    }
+
     @PostMapping("/reset-password")
     public void resetPassword(@Valid @RequestBody ResetPasswordRequest request){
         try{
             profileService.resetPassword(request.getEmail(), request.getOtp(), request.getNewPassword());
-        }catch (Exception e){
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+        } catch (UsernameNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+        } catch (RuntimeException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
     }
 
